@@ -250,23 +250,14 @@ Private Function HtmlEncode(ByVal s As String) As String
     HtmlEncode = s
 End Function
 
+
 Private Function GetBeatX(ByVal measureLeft As Double, ByVal beatStart As Double, ByVal measureWidth As Double) As Double
 
     Dim innerLeft As Double
     innerLeft = measureLeft + 40
-    
-    Select Case beatStart
-        Case 1
-            GetBeatX = innerLeft + 10
-        Case 2
-            GetBeatX = innerLeft + (measureWidth * 0.33)
-        Case 3
-            GetBeatX = innerLeft + (measureWidth * 0.66)
-        Case 4
-            GetBeatX = innerLeft + (measureWidth * 0.9)
-        Case Else
-            GetBeatX = innerLeft
-    End Select
+
+    ' Even spacing across the measure
+    GetBeatX = innerLeft + ((beatStart - 1) / 4) * measureWidth
 
 End Function
 
@@ -665,17 +656,32 @@ Private Sub DrawNoteWithStem(ByRef svg As String, ByVal x As Double, ByVal y As 
     Dim stemX As Double
     Dim stemY2 As Double
     Dim needsStem As Boolean
+    Dim fillColor As String
+    Dim dur As String
     
     rx = 7
     ry = 5
+    dur = LCase$(Trim$(durationName))
+    
+    Select Case dur
+        Case "whole"
+            fillColor = "white"
+            needsStem = False
+            
+        Case "half"
+            fillColor = "white"
+            needsStem = True
+            
+        Case Else
+            fillColor = "black"
+            needsStem = True
+    End Select
     
     svg = svg & "<ellipse cx='" & CStr(x) & _
                 "' cy='" & CStr(y) & _
                 "' rx='" & CStr(rx) & _
                 "' ry='" & CStr(ry) & _
-                "' fill='white' stroke='black' stroke-width='2' />"
-    
-    needsStem = (LCase$(Trim$(durationName)) <> "whole")
+                "' fill='" & fillColor & "' stroke='black' stroke-width='2' />"
     
     If needsStem Then
         If stemUp Then

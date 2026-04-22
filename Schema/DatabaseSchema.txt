@@ -1,0 +1,117 @@
+ACCESS DATABASE SCHEMA
+=======================
+
+TABLE: tblBarlineTypeLookup
+  - BarlineTypeLookupID | Type=LONG | Size=4 | Required=False | Auto=True
+  - BarlineTypeName | Type=TEXT | Size=30 | Required=True | Auto=False
+  - DisplayOrder | Type=BYTE | Size=1 | Required=True | Auto=False
+
+TABLE: tblChordSymbol
+  - ChordSymbolID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - MeasureID | Type=LONG | Size=4 | Required=True | Auto=False
+  - BeatStart | Type=DOUBLE | Size=8 | Required=True | Auto=False
+  - ChordText | Type=TEXT | Size=50 | Required=True | Auto=False
+  - DisplayOrder | Type=LONG | Size=4 | Required=False | Auto=False
+
+TABLE: tblClefLookup
+  - ClefLookupID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ClefName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - SymbolText | Type=TEXT | Size=10 | Required=False | Auto=False
+  - DisplayOrder | Type=BYTE | Size=1 | Required=True | Auto=False
+
+TABLE: tblDurationLookup
+  - DurationLookupID | Type=LONG | Size=4 | Required=False | Auto=True
+  - DurationName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - DurationValue | Type=DOUBLE | Size=8 | Required=True | Auto=False
+  - DisplayOrder | Type=BYTE | Size=1 | Required=True | Auto=False
+
+TABLE: tblKeySignatureLookup
+  - KeySignatureLookupID | Type=LONG | Size=4 | Required=False | Auto=True
+  - KeyName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - SharpsFlatsCount | Type=BYTE | Size=1 | Required=True | Auto=False
+  - UsesSharps | Type=YESNO | Size=1 | Required=True | Auto=False
+  - IsMajor | Type=YESNO | Size=1 | Required=True | Auto=False
+
+TABLE: tblMeasure
+  - MeasureID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - MeasureNumber | Type=LONG | Size=4 | Required=True | Auto=False
+  - BeatCapacity | Type=DOUBLE | Size=8 | Required=False | Auto=False
+  - BarlineType | Type=TEXT | Size=30 | Required=False | Auto=False
+  - RehearsalMark | Type=TEXT | Size=20 | Required=False | Auto=False
+  - SystemBreakAfter | Type=YESNO | Size=1 | Required=False | Auto=False
+  - Notes | Type=MEMO | Size=0 | Required=False | Auto=False
+
+TABLE: tblNoteEvent
+  - NoteEventID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - MeasureID | Type=LONG | Size=4 | Required=True | Auto=False
+  - StaffID | Type=LONG | Size=4 | Required=True | Auto=False
+  - EventOrder | Type=LONG | Size=4 | Required=True | Auto=False
+  - BeatStart | Type=DOUBLE | Size=8 | Required=True | Auto=False
+  - DurationValue | Type=DOUBLE | Size=8 | Required=True | Auto=False
+  - DurationName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - IsRest | Type=YESNO | Size=1 | Required=True | Auto=False
+  - PitchLetter | Type=TEXT | Size=2 | Required=False | Auto=False
+  - Accidental | Type=TEXT | Size=5 | Required=False | Auto=False
+  - OctaveNum | Type=BYTE | Size=1 | Required=False | Auto=False
+  - StemDirection | Type=TEXT | Size=10 | Required=False | Auto=False
+  - TieStart | Type=YESNO | Size=1 | Required=False | Auto=False
+  - TieEnd | Type=YESNO | Size=1 | Required=False | Auto=False
+  - SlurStart | Type=YESNO | Size=1 | Required=False | Auto=False
+  - SlurEnd | Type=YESNO | Size=1 | Required=False | Auto=False
+  - DotCount | Type=BYTE | Size=1 | Required=False | Auto=False
+  - LedgerLineCount | Type=BYTE | Size=1 | Required=False | Auto=False
+  - NoteLabel | Type=TEXT | Size=50 | Required=False | Auto=False
+  - IsVisible | Type=YESNO | Size=1 | Required=False | Auto=False
+  - VoiceName | Type=TEXT | Size=50 | Required=False | Auto=False
+
+TABLE: tblScore
+  - ScoreID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreTitle | Type=TEXT | Size=255 | Required=True | Auto=False
+  - Subtitle | Type=TEXT | Size=255 | Required=False | Auto=False
+  - Tempo | Type=LONG | Size=4 | Required=False | Auto=False
+  - TimeSigTop | Type=BYTE | Size=1 | Required=True | Auto=False
+  - TimeSigBottom | Type=BYTE | Size=1 | Required=True | Auto=False
+  - KeySignature | Type=TEXT | Size=20 | Required=True | Auto=False
+  - StaffSystemName | Type=TEXT | Size=50 | Required=False | Auto=False
+  - PageWidth | Type=LONG | Size=4 | Required=False | Auto=False
+  - PageHeight | Type=LONG | Size=4 | Required=False | Auto=False
+  - MarginTop | Type=LONG | Size=4 | Required=False | Auto=False
+  - MarginRight | Type=LONG | Size=4 | Required=False | Auto=False
+  - MarginBottom | Type=LONG | Size=4 | Required=False | Auto=False
+  - MarginLeft | Type=LONG | Size=4 | Required=False | Auto=False
+  - CreatedOn | Type=DATETIME | Size=8 | Required=False | Auto=False
+  - UpdatedOn | Type=DATETIME | Size=8 | Required=False | Auto=False
+  - IsActive | Type=YESNO | Size=1 | Required=False | Auto=False
+
+TABLE: tblScoreTextBlock
+  - ScoreTextBlockID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - BlockType | Type=TEXT | Size=50 | Required=True | Auto=False
+  - BlockTitle | Type=TEXT | Size=255 | Required=False | Auto=False
+  - BlockText | Type=MEMO | Size=0 | Required=False | Auto=False
+  - DisplayOrder | Type=LONG | Size=4 | Required=True | Auto=False
+  - IsVisible | Type=YESNO | Size=1 | Required=False | Auto=False
+
+TABLE: tblSection
+  - SectionID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - SectionTitle | Type=TEXT | Size=255 | Required=True | Auto=False
+  - SectionSubtitle | Type=TEXT | Size=255 | Required=False | Auto=False
+  - DisplayOrder | Type=LONG | Size=4 | Required=True | Auto=False
+  - StartMeasureNumber | Type=LONG | Size=4 | Required=False | Auto=False
+  - EndMeasureNumber | Type=LONG | Size=4 | Required=False | Auto=False
+  - StaffID | Type=LONG | Size=4 | Required=False | Auto=False
+  - IsVisible | Type=YESNO | Size=1 | Required=False | Auto=False
+
+TABLE: tblStaff
+  - StaffID | Type=LONG | Size=4 | Required=False | Auto=True
+  - ScoreID | Type=LONG | Size=4 | Required=True | Auto=False
+  - StaffName | Type=TEXT | Size=50 | Required=True | Auto=False
+  - HandName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - ClefName | Type=TEXT | Size=20 | Required=True | Auto=False
+  - StaffOrder | Type=BYTE | Size=1 | Required=True | Auto=False
+  - IsVisible | Type=YESNO | Size=1 | Required=False | Auto=False
+
