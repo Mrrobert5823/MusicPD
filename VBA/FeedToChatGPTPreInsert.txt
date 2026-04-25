@@ -1,0 +1,45 @@
+🧾 Access Music App – SQL Rules (Reminder)
+1. Always use real IDs (never assume)
+Query first:
+SELECT MeasureID, MeasureNumber FROM tblMeasure WHERE ScoreID = X;
+SELECT StaffID, StaffName FROM tblStaff WHERE ScoreID = X;
+Use those IDs in ALL inserts
+
+2. tblNoteEvent rules (critical)
+NEVER do:
+INSERT INTO tblNoteEvent VALUES (...)
+ALWAYS do:
+INSERT INTO tblNoteEvent (field list) VALUES (...)
+NEVER include NoteEventID (AutoNumber)
+
+3. Field safety
+YES/NO → use 0 or -1 (not NULL)
+TEXT → use '' (not NULL)
+Avoid NULL unless absolutely safe
+
+4. Staff mapping (per score, not global)
+LH ≠ always StaffID 1
+RH ≠ always StaffID 2
+👉 Must query every time
+
+5. Measure mapping (biggest bug source)
+MeasureID ≠ MeasureNumber
+Always map:
+MeasureNumber → MeasureID
+
+6. tblChordSymbol rules
+Same rule as notes:
+Use correct MeasureID
+Not 1,2,3,4 unless confirmed
+Always include DisplayOrder = 1
+
+7. Debug checklist (if nothing renders)
+Wrong StaffID
+Wrong MeasureID
+Used VALUES without field list
+Inserted NULL into restricted field
+
+8. Voice names (must match renderer exactly)
+LH_Shells
+RH_Option1
+RH_Option2
